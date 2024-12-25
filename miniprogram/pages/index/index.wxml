@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <image class="logo" src="{{logoUrl}}" mode="aspectFit" bindtap="handleLogoClick"></image>
+    <text class="main-title">北京大学西安校友会</text>
+    <text class="sub-title">校友注册审核系统</text>
+  </view>
+  
+  <view class="button-container">
+    <button class="register-btn" bindtap="handleRegister" hover-class="register-btn-hover">申请注册</button>
+  </view>
+</view>

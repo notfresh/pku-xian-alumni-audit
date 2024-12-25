@@ -1,0 +1,154 @@
+<view class="container">
+  <form bindsubmit="handleSubmit">
+    <view class="form-group">
+      <view class="form-item">
+        <text class="label">姓名</text>
+        <input 
+          name="name" 
+          class="input" 
+          placeholder="请输入姓名" 
+          value="{{formData.name}}" 
+          disabled="{{!isEditing}}"
+          data-field="name"
+          bindinput="handleInputChange"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">学院</text>
+        <input 
+          name="college" 
+          class="input" 
+          placeholder="请输入毕业学院" 
+          value="{{formData.college}}" 
+          disabled="{{!isEditing}}"
+          data-field="college"
+          bindinput="handleInputChange"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">毕业时间</text>
+        <view class="date-picker-group">
+          <picker 
+            name="grade" 
+            mode="selector" 
+            range="{{years}}" 
+            value="{{yearIndex}}" 
+            bindchange="handleYearChange"
+            disabled="{{!isEditing}}"
+            class="year-picker"
+          >
+            <view class="picker-content {{ !isEditing ? 'disabled' : ''}}">
+              <text class="{{yearIndex === -1 ? 'placeholder' : ''}}">
+                {{yearIndex === -1 ? '请选择年份' : years[yearIndex] + '年'}}
+              </text>
+            </view>
+          </picker>
+
+          <picker 
+            name="month" 
+            mode="selector" 
+            range="{{months}}" 
+            value="{{monthIndex}}" 
+            bindchange="handleMonthChange"
+            disabled="{{!isEditing}}"
+            class="month-picker"
+          >
+            <view class="picker-content {{ !isEditing ? 'disabled' : ''}}">
+              <text class="{{monthIndex === -1 ? 'placeholder' : ''}}">
+                {{monthIndex === -1 ? '请选择月份' : months[monthIndex]+'月'}}
+              </text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">专业</text>
+        <input 
+          name="major" 
+          class="input" 
+          placeholder="请输入专业" 
+          value="{{formData.major}}" 
+          disabled="{{!isEditing}}"
+          data-field="major"
+          bindinput="handleInputChange"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">性别</text>
+        <radio-group name="gender" class="radio-group" bindchange="handleGenderChange">
+          <label class="radio {{!isEditing ? 'disabled' : ''}}">
+            <radio value="male" checked="{{formData.gender === 'male'}}" disabled="{{!isEditing}}" />男
+          </label>
+          <label class="radio {{isEditing ? 'disabled' : ''}}">
+            <radio value="female" checked="{{formData.gender === 'female'}}" disabled="{{!isEditing}}" />女
+          </label>
+        </radio-group>
+      </view>
+
+      <view class="form-item">
+        <text class="label">微信号</text>
+        <input 
+          name="wechat" 
+          class="input" 
+          placeholder="请输入可以联系到的微信号" 
+          value="{{formData.wechat}}"
+          disabled="{{!isEditing}}"
+          data-field="wechat"
+          bindinput="handleInputChange"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">工作单位</text>
+        <input 
+          name="workplace" 
+          class="input" 
+          placeholder="请输入当前工作单位" 
+          value="{{formData.workplace}}"
+          disabled="{{ !isEditing}}"
+          data-field="workplace"
+          bindinput="handleInputChange"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">个人照片</text>
+        <view class="upload-box {{!isEditing ? 'disabled' : ''}}" bindtap="{{!isEditing ? '' : 'choosePhoto'}}">
+          <image wx:if="{{formData.photoFileID}}" src="{{ formData.photoFileID}}" mode="aspectFit" class="preview"></image>
+          <view wx:else class="upload-placeholder">点击上传照片</view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">毕业证照片</text>
+        <view class="upload-box {{ !isEditing ? 'disabled' : ''}}" bindtap="{{!isEditing ? '' : 'chooseDiploma'}}">
+          <image wx:if="{{formData.diplomaFileID}}" src="{{formData.diplomaFileID}}" mode="aspectFit" class="preview"></image>
+          <view wx:else class="upload-placeholder">点击上传毕业证照片</view>
+        </view>
+      </view>
+
+      <view class="form-item">
+        <text class="label">身份证照片</text>
+        <view class="upload-box {{!isEditing ? 'disabled' : ''}}" bindtap="{{ !isEditing? '' : 'chooseIdCard'}}">
+          <image wx:if="{{formData.idCardFileID}}" src="{{formData.idCardFileID}}" mode="aspectFit" class="preview"></image>
+          <view wx:else class="upload-placeholder">点击上传身份证照片</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="button-group" wx:if="{{isSubmitted && formData.status !== 'approved'}}">
+      <button wx:if="{{isEditing}}" class="save-btn" bindtap="handleSave">保存修改</button>
+      <button wx:else class="edit-btn" bindtap="handleEdit">修改信息</button>
+      <button class="resubmit-btn" bindtap="handleResubmit">再次提交</button>
+    </view>
+    <button wx:elif="{{!isSubmitted}}" class="submit-btn" form-type="submit">提交申请</button>
+
+    <view class="approval-notice" wx:if="{{formData.status === 'approved'}}">
+      <text>您的信息已审核通过</text>
+    </view>
+  </form>
+</view> 

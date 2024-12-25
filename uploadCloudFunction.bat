@@ -1,0 +1,1 @@
+"C:\Users\张三\usr\微信web开发者工具2\cli.bat" cloud functions deploy --e test-alumi-1g7c5dah61dacc8b --n quickstartFunctions --r --project "C:\Users\张三\WeChatProjects\miniprogram-6" --report_first --report
